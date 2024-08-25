@@ -30,4 +30,9 @@ wget -nc -P images -i "imagelist.txt"
 exit # revenir sous Windows
 Get-ChildItem | % { Rename-Item $_ ($_ -replace "namespace=gamesdb",'') } # retirer les suffixes d'URL
 python csv_parser.py --html5 -i ..\gameDB.csv
+cd C:\Games\MyGames
+git clone https://github.com/nbros/MyGames.git
+'index.html','assets','images','templates' | % { Remove-Item -Recurse .\MyGames\$_ ; Copy-Item -Recurse GOG-Galaxy-HTML5-exporter-master\$_ .\MyGames }
+git commit -a -m (Get-Date -Format "yyyy-MM-dd HH:mm")
+git push
 ```
